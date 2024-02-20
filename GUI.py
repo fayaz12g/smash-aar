@@ -368,15 +368,19 @@ def select_mario_folder():
     # Perform Pane Strecthing
     patch_blarc(str(ratio_value), HUD_pos, text_folder)
 
-    # Compress every folder that has a .bntx inside with the arguments 
-    for dir_name in os.listdir(layout_folder):
-        dir_path = os.path.join(layout_folder, dir_name)
-        for dir_name2 in os.listdir(dir_path):
-            dir_path2 = os.path.join(dir_path, dir_name2)
-            print(f"Recompressing {dir_name2}.arc")
-            pack(dir_path2, ">", 1, "")
-            shutil.rmtree(dir_path2)
-
+    # Compress every folder titled "layout" into "layout.arc"
+    for folder_name in os.listdir(root):
+        folder_path = os.path.join(root, folder_name)
+        if os.path.isdir(folder_path):
+            for sub_folder_name in os.listdir(folder_path):
+                sub_folder_path = os.path.join(folder_path, sub_folder_name)
+                if os.path.isdir(sub_folder_path) and sub_folder_name == folder_name:
+                    layout_folder = os.path.join(sub_folder_path, "layout")
+                    if os.path.isdir(layout_folder):
+                        # Compress the layout folder
+                        print(f"Recompressing {layout_folder}")
+                        pack(layout_folder, ">", 1, os.path.join(sub_folder_path, "layout.arc"))
+                        shutil.rmtree(layout_folder)
 
     print("We are done!")
     if open_when_done.get() == True:
