@@ -31,50 +31,50 @@ def create_visuals(do_split60, do_disabledynamic, do_nosteer, do_dofscaler, do_f
     if do_lodenhance:
         lodenhance = "enabled"
         
-    visuals3_0_1 = f'''// 60 FPS in Splitscreen
-@{split60}
+    visuals13_0_2 = f'''// 60 FPS in Splitscreen
+@disabled
 00BC0B3C 970000EA
 @stop
 
 // Dynamic Res Disable
-@{dynamic}
+@disabled
 0079DD84 9D0200EA
 @stop
 
 // Disable Steer Assist
-@{nosteer}
+@disabled
 0018B764 0000A0E3
 @stop
 
 // DOF Scaler Fix
-@{dofscaler}
+@disabled
 00B81630 003AB7EE
 @stop
 
 // Force FXAA Off
-@{fxaaoff}
+@disabled
 006B54F4 00F020E3
 @stop
 
 // Force FXAA On
-@{fxaaon}
+@disabled
 006B590C 00F020E3
 @stop
 
 // Force FXAA On - Scaler Fix
-@{fxaaonscaler}
+@disabled
 006B56F8 3F94A0E3
 006B590C 00F020E3
 @stop
 
 // LOD Enhancement
-@{lodenhance}
+@disabled
 0088ED3C 0020A0E3
 006F051C 001AB0EE
 00AF41C4 000AB9EE
 00B1EB34 000ABBEE
 @stop
 '''
-    visual_fixes.append(visuals3_0_1)
+    visual_fixes.append(visuals13_0_2)
     
     return visual_fixes

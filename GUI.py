@@ -45,15 +45,15 @@ from compress import pack
 #### Create Window ####
 #######################
 
-tool_version = "2.0.5"
+tool_version = "1.0.0"
 
 root = customtkinter.CTk()
-root.title(f"Fayaz's Settings {tool_version} for Mario Kart 8 Deluxe 3.0.1")
+root.title(f"Fayaz's Settings {tool_version} for Super Smash Brothers Ultimate 13.0.2")
 root.geometry("500x720")
 
 customtkinter.set_appearance_mode("system")
 customtkinter.set_default_color_theme("blue")  
-windowtitle = customtkinter.CTkLabel(master=root, font=(CTkFont, 20), text="Fayaz's MK8D Utility {tool_version}")
+windowtitle = customtkinter.CTkLabel(master=root, font=(CTkFont, 20), text="Fayaz's SSBU Utility {tool_version}")
 
 ###############################################
 ###########    GLOBAL SETTINGS      ###########
@@ -347,7 +347,7 @@ def select_mario_folder():
 
     if not os.path.exists(patch_folder):
         os.makedirs(patch_folder)
-    # Download the MK8D Files
+    # Download the SSBU Files
     download_extract_copy(input_folder, mod_name)
 
     # Create the PCHTXT Files
@@ -355,20 +355,12 @@ def select_mario_folder():
     create_patch_files(patch_folder, str(inverse_factor), str(scaling_factor), visual_fixes)
     romfs_folder = os.path.join(input_folder, mod_name)
 
-    cmn_folder = os.path.join(input_folder, mod_name, 'romfs', 'UI', 'cmn')
-
-    # Decomperss sarc Files
-    for dir_name in os.listdir(cmn_folder):
-        if dir_name.lower() not in ["boot", "trial"]:
-            dir_path = os.path.join(cmn_folder, dir_name)
-            print(f"Extracting {dir_name}")
-            extract_sarc(dir_path)
-            os.remove(dir_path)
-
-    # Decompres szs files
-    for folder, _, files in os.walk(cmn_folder):
+    layout_folder = os.path.join(input_folder, mod_name, 'romfs', 'UI', 'layout')
+    
+    # Decompres layout.arc files
+    for folder, _, files in os.walk(layout_folder):
         for file_name in files:
-            if file_name.lower().endswith(".szs"):
+            if file_name.lower().endswith(".arc"):
                 file_path = os.path.join(folder, file_name)
             extract_szs(file_path)
             os.remove(file_path)
@@ -377,26 +369,19 @@ def select_mario_folder():
     patch_blarc(str(ratio_value), HUD_pos, text_folder)
 
     # Compress every folder that has a .bntx inside with the arguments 
-    for dir_name in os.listdir(cmn_folder):
-        dir_path = os.path.join(cmn_folder, dir_name)
+    for dir_name in os.listdir(layout_folder):
+        dir_path = os.path.join(layout_folder, dir_name)
         for dir_name2 in os.listdir(dir_path):
             dir_path2 = os.path.join(dir_path, dir_name2)
-            print(f"Recompressing {dir_name2}.szs")
+            print(f"Recompressing {dir_name2}.arc")
             pack(dir_path2, ">", 1, "")
             shutil.rmtree(dir_path2)
 
 
-    # Recompress sarc Files
-    for dir_name in os.listdir(cmn_folder):
-        if dir_name.lower() not in ["boot", "trial"]:
-            dir_path = os.path.join(cmn_folder, dir_name)
-            pack(dir_path, ">", -1, "")
-            shutil.rmtree(dir_path)
-
     print("We are done!")
     if open_when_done.get() == True:
         print ("Complete! Opening output folder.")
-        os.startfile(cmn_folder)
+        os.startfile(layout_folder)
 
 def create_patch():
     sys.stdout = PrintRedirector(scrolled_text)

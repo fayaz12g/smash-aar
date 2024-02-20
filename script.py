@@ -62,10 +62,8 @@ def patch_blarc(aspect_ratio, HUD_pos, unpacked_folder):
     blyt_folder = os.path.abspath(os.path.join(unpacked_folder))
     file_names_stripped = []
    
-    do_not_scale_rootpane = ['hash_0xb061c76e', #rc_RaceView_1P_00 in Race
-                            'hash_0x904e307e'] # rc_Viewer_00 in Race
-    rootpane_stretch_y = ['hash_0xcc5d377a' # Background in Menu
-                          ]
+    do_not_scale_rootpane = []
+    rootpane_stretch_y = []
 
     for root, dirs, files in os.walk(blyt_folder):
         for file_name in files:
@@ -92,8 +90,7 @@ def patch_blarc(aspect_ratio, HUD_pos, unpacked_folder):
             if name in rootpane_stretch_y:
                 patch_blyt(name, 'RootPane', 'scale_y', 1/s1)
         
-        patch_blyt('hash_0x9a7a5a0e', 'N_Capture_0', 'scale_x', 1/s1) # Title Screen Background
-        # patch_blyt('rc_RaceView_1P_00', 'N_Pause_00', 'scale_x', s1) 
+       
         # patch_blyt('rc_RaceView_1P_00', 'N_All_00', 'scale_x', s1) 
         # patch_blyt('rc_RaceView_1P_00', 'N_Pause_02', 'scale_x', s1) 
         # patch_blyt('rc_RaceView_1P_00', 'N_ItemBoxPos_00', 'shift_x', -780) 
@@ -107,12 +104,6 @@ def patch_blarc(aspect_ratio, HUD_pos, unpacked_folder):
             # patch_blyt('rc_RaceView_1P_00', 'N_ItemBoxPos_00', 'shift_x', -780) 
             # patch_blyt('rc_RaceView_1P_00', 'L_Rank_00', 'shift_x', 750) 
             # patch_blyt('rc_RaceView_1P_00', 'L_LapCoin_00', 'shift_x', -750) 
-            patch_blyt('hash_0xb061c76e', 'N_Pause_00', 'scale_x', s1) 
-            patch_blyt('hash_0xb061c76e', 'N_All_00', 'scale_x', s1) 
-            # patch_blyt('hash_0xb061c76e', 'N_Pause_02', 'scale_x', s1) 
-            patch_blyt('hash_0xb061c76e', 'N_ItemBoxPos_00', 'shift_x', -780) 
-            patch_blyt('hash_0xb061c76e', 'L_Rank_00', 'shift_x', 750) 
-            patch_blyt('hash_0xb061c76e', 'L_LapCoin_00', 'shift_x', -650) 
             # patch_blyt('rc_RaceView_2P_Ml', 'N_Pause_00', 'scale_x', s1) 
             # patch_blyt('rc_RaceView_2P_Ml', 'N_All_00', 'scale_x', s1) 
             # patch_blyt('rc_RaceView_2P_Ml', 'N_Pause_02', 'scale_x', s1) 

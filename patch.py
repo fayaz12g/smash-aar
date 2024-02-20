@@ -15,13 +15,21 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
     rounded_ratio = functions.calculate_rounded_ratio(float(ratio_value))
     asm_code = functions.generate_asm_code(rounded_ratio)
     hex_value = functions.convert_asm_to_arm64_hex(asm_code)
-    version_variables = ["3.0.1"]
+    version_variables = ["13.0.1", "13.0.2"]
     for version_variable in version_variables:
         file_name = f"main-{version_variable}.pchtxt"
         file_path = os.path.join(patch_folder, file_name)
 
-        if version_variable == "3.0.1":
-            nsobidid = "9EF5CAA2D5B933C772358C5AA6FABA15"
+        if version_variable == "13.0.1":
+            nsobidid = "B9B166DF1DB90BAFFBD8027EB0DF14D6949D6A11"
+            hex1 = "035547A8"
+            hex2 = "04470c5c"
+            visual_fix = visual_fixesa
+
+        elif version_variable == "13.0.2":
+            nsobidid = "CBD5A9B56EA859BA11CA069B19B666101AE56F5A"
+            hex1 = "03555428"
+            hex2 = "04471C5C"
             visual_fix = visual_fixesa
 
         patch_content = f'''@nsobid-{nsobidid}
@@ -30,16 +38,13 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
 @flag offset_shift 0x100
 
 @enabled
-003FA89C E87A0FEA
-007D9444 040A85EE
-007D9448 {hex_value}
-007D944C 010A20EE
-007D9450 1285F0EA
+{hex1} {hex_value}
+{hex2} 8ee31840
 @stop
 
 {visual_fix}
 
-// Generated using MK8D-AAR by Fayaz (github.com/fayaz12g/mk8d-aar)'''
+// Generated using SSBU-AAR by Fayaz (github.com/fayaz12g/ssbu-aar)'''
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, 'w') as patch_file:
             patch_file.write(patch_content)
