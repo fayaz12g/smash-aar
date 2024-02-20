@@ -6,9 +6,9 @@ from keystone import *
 
 def convert_asm_to_arm64_hex(asm_code):
     import binascii
-    ks = Ks(KS_ARCH_ARM, KS_MODE_ARM)
+    ks = Ks(KS_ARCH_ARM64, KS_MODE_LITTLE_ENDIAN)
     encoding, _ = ks.asm(asm_code)
-    return binascii.hexlify(bytearray(encoding)).decode('utf-8').upper()
+    return ''.join(f'{x:02X}' for x in encoding)
 
 def calculate_rounded_ratio(ratio_value):
     if ratio_value <= 2:
