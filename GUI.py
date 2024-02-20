@@ -45,7 +45,7 @@ from compress import pack
 #### Create Window ####
 #######################
 
-tool_version = "1.0.0"
+tool_version = "1.0.1"
 
 root = customtkinter.CTk()
 root.title(f"Fayaz's Settings {tool_version} for Super Smash Brothers Ultimate 13.0.2")
@@ -313,10 +313,10 @@ def select_mario_folder():
     inverse_factor = (int(numerator_entry.get()) / int(denominator_entry.get())) / (16/9)
     username = getpass.getuser()
     if output_yuzu.get() is True:
-        input_folder = f"C:\\Users\\{username}\\AppData\\Roaming\\yuzu\\load\\0100152000022000"
+        input_folder = f"C:\\Users\\{username}\\AppData\\Roaming\\yuzu\\load\\01006A800016E000"
         process_name = "yuzu.exe"
     if output_ryujinx.get() is True:
-        input_folder = f"C:\\Users\\{username}\\AppData\\Roaming\\Ryujinx\\mods\\contents\\0100152000022000"
+        input_folder = f"C:\\Users\\{username}\\AppData\\Roaming\\Ryujinx\\mods\\contents\\01006A800016E000"
         process_name = "ryujinx.exe"
     else:
         process_name = "yuzu.exe"

@@ -20,7 +20,7 @@ def download_extract_copy(input_folder, mod_name):
     else:
         print(f"Directory {directory_path} already exists.")
     totk_folder = f"C:/Users/{username}/AppData/Roaming/AnyAspectRatio/perm/ssbu"
-    zip_file_source = os.path.join(totk_folder, "romfs.zip")
+    zip_file_source = os.path.join(totk_folder, "Smash.zip")
 
     if not os.path.isfile(zip_file_source):
         # Download the ZIP file
