@@ -16,7 +16,7 @@ from threading import Thread
 import shutil
 from download import download_extract_copy
 from patch import create_patch_files
-from functions import float2hex
+from functions import float2hex, make_hex
 import getpass
 from script import patch_blarc
 from PIL import Image

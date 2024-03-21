@@ -5,16 +5,16 @@ import functions
 import struct
 import math
 
-from functions import calculate_rounded_ratio, convert_asm_to_arm64_hex, float2hex
+from functions import make_hex, float2hex
 
 def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
     visual_fixesa = visual_fixes[0]
     scaling_factor = float(scaling_factor)
     ratio_value = float(ratio_value)
     print(f"The scaling factor is {scaling_factor}.")
-    rounded_ratio = functions.calculate_rounded_ratio(float(ratio_value))
-    asm_code = functions.generate_asm_code(rounded_ratio)
-    hex_value = functions.convert_asm_to_arm64_hex(asm_code)
+    hex_value = make_hex(ratio_value, 2)
+    hex_value2 = make_hex(ratio_value, 8)
+    hex_value3 = make_hex(ratio_value, 0)
     version_variables = ["13.0.1", "13.0.2"]
     for version_variable in version_variables:
         file_name = f"main-{version_variable}.pchtxt"
@@ -24,12 +24,16 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
             nsobidid = "B9B166DF1DB90BAFFBD8027EB0DF14D6949D6A11"
             hex1 = "035547A8"
             hex2 = "04470c5c"
+            hex3 = "035abfec"
+            hex4 = "004ee20c"
             visual_fix = visual_fixesa
 
         elif version_variable == "13.0.2":
             nsobidid = "CBD5A9B56EA859BA11CA069B19B666101AE56F5A"
             hex1 = "03555428"
             hex2 = "04471C5C"
+            hex3 = "035abfec"
+            hex4 = "004ee20c"
             visual_fix = visual_fixesa
 
         patch_content = f'''@nsobid-{nsobidid}
@@ -40,6 +44,8 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
 @enabled
 {hex1} {hex_value}
 {hex2} 8ee31840
+{hex3} {hex_value2}
+{hex4} {hex_value3}
 @stop
 
 {visual_fix}
