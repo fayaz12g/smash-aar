@@ -378,14 +378,13 @@ def select_mario_folder():
         folder_path = os.path.join(layout_folder, folder_name)
         if os.path.isdir(folder_path):
             for sub_folder_name in os.listdir(folder_path):
-                sub_folder_path = os.path.join(folder_path, sub_folder_name)
-                if os.path.isdir(sub_folder_path) and sub_folder_name == folder_name:
-                    newlayout_folder = os.path.join(sub_folder_path, "layout")
-                    if os.path.isdir(newlayout_folder):
-                        # Compress the layout folder
-                        print(f"Recompressing {newlayout_folder}")
-                        pack(newlayout_folder, ">", 1, os.path.join(sub_folder_path, "layout.arc"))
-                        shutil.rmtree(newlayout_folder)
+                sub_folder_path = os.path.join(folder_path, sub_folder_name, sub_folder_name)
+                newlayout_folder = os.path.join(sub_folder_path, "layout")
+                if os.path.isdir(newlayout_folder):
+                    # Compress the layout folder
+                    print(f"Recompressing {newlayout_folder}")
+                    pack(newlayout_folder, ">", 1, os.path.join(sub_folder_path, "layout.arc"))
+                    shutil.rmtree(newlayout_folder)
 
     print("We are done!")
     if open_when_done.get() == True:
