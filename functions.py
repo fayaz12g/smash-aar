@@ -49,3 +49,33 @@ def asm_to_hex(asm_code):
     ks = Ks(KS_ARCH_ARM64, KS_MODE_LITTLE_ENDIAN)
     encoding, count = ks.asm(asm_code)
     return ''.join('{:02x}'.format(x) for x in encoding)
+
+def make_super(register, num):
+    num = round(num, 15)
+    packed = struct.pack('!f', num)
+    full_hex = ''.join('{:02x}'.format(b) for b in packed)
+    hex_1 = full_hex[:4]
+    hex_2 = full_hex[4:]
+    asm1 = f'movz {register}, #0x{hex_2}'
+    asm2 = f'movk {register}, #0x{hex_1}, lsl #16'
+    return asm_to_hex(asm1), asm_to_hex(asm2)
+
+def make_super_r(register, num):
+    num = round(num, 15)
+    packed = struct.pack('!f', num)
+    full_hex = ''.join('{:02x}'.format(b) for b in packed)
+    hex_1 = full_hex[:4]
+    hex_2 = full_hex[4:]
+    asm1 = f'movz {register}, #0x{hex_2}'
+    asm2 = f'movk {register}, #0x{hex_1}, lsl #16'
+    return asm_to_hex(asm2), asm_to_hex(asm1)
+
+def make_super_s(register, num):
+    num = round(num, 15)
+    packed = struct.pack('!f', num)
+    full_hex = ''.join('{:02x}'.format(b) for b in packed)
+    hex_1 = full_hex[:4]
+    hex_2 = full_hex[4:]
+    asm1 = f'movz {register}, #0x{hex_2}, lsl #32'
+    asm2 = f'movk {register}, #0x{hex_1}, lsl #48'
+    return asm_to_hex(asm1), asm_to_hex(asm2)

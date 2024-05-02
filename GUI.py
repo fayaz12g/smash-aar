@@ -40,15 +40,16 @@ from keystone import *
 from decompress import extract_sarc
 from decompress import extract_szs
 from compress import pack
+import pyautogui
 
 #######################
 #### Create Window ####
 #######################
 
-tool_version = "2.0.2"
+tool_version = "3.0.0"
 
 root = customtkinter.CTk()
-root.title(f"Fayaz's Settings {tool_version} for Super Smash Brothers Ultimate 13.0.2")
+root.title(f"Fayaz's Settings {tool_version} for Super Smash Brothers Ultimate")
 root.geometry("500x720")
 
 customtkinter.set_appearance_mode("system")
@@ -60,11 +61,12 @@ windowtitle = customtkinter.CTkLabel(master=root, font=(CTkFont, 20), text="Faya
 ###############################################
 
 # Visuals
-ar_numerator = StringVar(value="16")
-ar_denominator = StringVar(value="9")
+screen_width, screen_height = pyautogui.size()
+ar_numerator = StringVar(value=f"{screen_width}")
+ar_denominator = StringVar(value=f"{screen_height}")
 
-do_split60 = BooleanVar()
-do_disabledynamic = BooleanVar()
+do_split60 = BooleanVar(value = True)
+do_disabledynamic = BooleanVar(value = False)
 do_nosteer = BooleanVar()
 do_dofscaler = BooleanVar()
 do_fxaaoff = BooleanVar()
@@ -351,7 +353,7 @@ def select_mario_folder():
 
     # Create the PCHTXT Files
     visual_fixes = create_visuals(str(do_split60.get()), str(do_disabledynamic.get()), str(do_nosteer.get()), str(do_dofscaler.get()), str(do_fxaaoff.get()), str(do_fxaaon.get()), str(do_fxaaonscaler.get()), str(do_lodenhance.get()))
-    create_patch_files(patch_folder, str(inverse_factor), str(scaling_factor), visual_fixes)
+    create_patch_files(patch_folder, str(inverse_factor), str(scaling_factor), visual_fixes, do_disabledynamic.get())
 
     # NOTICE: THE FOLLOWING IS COMMNENTED OUT BECAUSE THE FILE IS TOO LARGE TO HOST AND TAKES TOO LONG TO PROCESS.
 
@@ -412,8 +414,8 @@ def pack_widgets():
     denominator_entry.pack(side="left")
 
     
-    # split60.pack(padx=5, pady=5)
-    # disabledynamic.pack(padx=5, pady=5)
+    split60.pack(padx=5, pady=5)
+    disabledynamic.pack(padx=5, pady=5)
     # nosteer.pack(padx=5, pady=5)
     # dofscaler.pack(padx=5, pady=5)
     # fxaaoff.pack(padx=5, pady=5)
@@ -481,8 +483,8 @@ def forget_packing():
     aspect_ratio_divider.pack_forget()
     denominator_entry.pack_forget()
     
-    # split60.pack_forget() 
-    # disabledynamic.pack_forget()
+    split60.pack_forget() 
+    disabledynamic.pack_forget()
     # nosteer.pack_forget()
     # dofscaler.pack_forget() 
     # fxaaoff.pack_forget() 
@@ -550,22 +552,22 @@ notebook = customtkinter.CTkTabview(root, width=10, height=10)
 
 notebook.add("Visuals")
 
-console_label3= customtkinter.CTkLabel(master=notebook.tab("Visuals"), text='Enter Aspect Ratio or Screen Dimensions (ex: 21:9 or 3440x1440):')
+console_label3= customtkinter.CTkLabel(master=notebook.tab("Visuals"), text=f'Aspect Ratio: (Auto-Deteced as {screen_width} x {screen_height}):')
 
 frame = customtkinter.CTkFrame(master=notebook.tab("Visuals"))
 
 numerator_entry = customtkinter.CTkEntry(frame, textvariable=ar_numerator)
 numerator_entry.configure(text_color='gray')
-numerator_entry.bind("<FocusIn>", lambda event: handle_focus_in(numerator_entry, "16"))
-numerator_entry.bind("<FocusOut>", lambda event: handle_focus_out(numerator_entry, "16"))
+numerator_entry.bind("<FocusIn>", lambda event: handle_focus_in(numerator_entry, f"{screen_width}"))
+numerator_entry.bind("<FocusOut>", lambda event: handle_focus_out(numerator_entry, f"{screen_width}"))
 aspect_ratio_divider= customtkinter.CTkLabel(frame, text=":")
 denominator_entry = customtkinter.CTkEntry(frame, textvariable=ar_denominator)
 denominator_entry.configure(text_color='gray')
-denominator_entry.bind("<FocusIn>", lambda event: handle_focus_in(denominator_entry, "9"))
-denominator_entry.bind("<FocusOut>", lambda event: handle_focus_out(denominator_entry, "9"))
+denominator_entry.bind("<FocusIn>", lambda event: handle_focus_in(denominator_entry, f"{screen_height}"))
+denominator_entry.bind("<FocusOut>", lambda event: handle_focus_out(denominator_entry, f"{screen_height}"))
 
-split60 = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="60 FPS in Splitscreen", variable=do_split60)
-disabledynamic = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="Disable Dynamic Resolution", variable=do_disabledynamic)
+split60 = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="120 FPS", variable=do_split60)
+disabledynamic = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="Ultrawide Camera (causes issues on side of screen)", variable=do_disabledynamic)
 nosteer = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="Disable Steer Assist", variable=do_nosteer)
 dofscaler = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="DOF Scaler", variable=do_dofscaler)
 fxaaoff = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="FXAA Off", variable=do_fxaaoff)
