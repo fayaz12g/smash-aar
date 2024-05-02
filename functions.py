@@ -11,7 +11,6 @@ def make_hex(x, r):
     a = 2*a + 1
     h = hex(a).lstrip('0x').rjust(2,'0').upper()
     hex_value = f'0{r}' + h[1] + '02' + h[0] + '1E' 
-    print(hex_value)
     return hex_value
 
 def float2hex(f):

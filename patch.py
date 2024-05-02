@@ -19,7 +19,7 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes, 
     version_variables = ["13.0.1", "13.0.2"]
     hex_8r = make_super_r('w8', ratio_value)
     hex_22 = make_super('w22', ratio_value)
-    hex_9 = make_super('w9')
+    hex_9 = make_super('w9', ratio_value)
     hex_22s = make_super_s('x22', ratio_value)
     hex_8 = make_super('w8', ratio_value)
     hex_15 = make_super('w15', ratio_value)
