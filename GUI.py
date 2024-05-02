@@ -45,7 +45,7 @@ from compress import pack
 #### Create Window ####
 #######################
 
-tool_version = "2.0.1"
+tool_version = "2.0.2"
 
 root = customtkinter.CTk()
 root.title(f"Fayaz's Settings {tool_version} for Super Smash Brothers Ultimate 13.0.2")
@@ -276,10 +276,6 @@ scaling_factor = 0.762
 HUD_pos = "corner"
 
 
-    #repack the layour.lyarc folder into file
-    #repack the folder into a szs file
-    #move them to the correct place
-
 def patch_blyt(filename, pane, operation, value):
     print(f"Scaling {pane} by {value}")
     offset_dict = {'shift_x': 0x40, 'shift_y': 0x48, 'scale_x': 0x70, 'scale_y': 0x78} 
@@ -352,44 +348,48 @@ def select_mario_folder():
 
     if not os.path.exists(patch_folder):
         os.makedirs(patch_folder)
-    # Download the SSBU Files
-    download_extract_copy(input_folder, mod_name)
 
     # Create the PCHTXT Files
     visual_fixes = create_visuals(str(do_split60.get()), str(do_disabledynamic.get()), str(do_nosteer.get()), str(do_dofscaler.get()), str(do_fxaaoff.get()), str(do_fxaaon.get()), str(do_fxaaonscaler.get()), str(do_lodenhance.get()))
     create_patch_files(patch_folder, str(inverse_factor), str(scaling_factor), visual_fixes)
-    romfs_folder = os.path.join(input_folder, mod_name)
 
-    layout_folder = os.path.join(input_folder, mod_name, 'romfs', 'UI', 'layout')
+    # NOTICE: THE FOLLOWING IS COMMNENTED OUT BECAUSE THE FILE IS TOO LARGE TO HOST AND TAKES TOO LONG TO PROCESS.
+
+    # # Download the SSBU Files
+    # download_extract_copy(input_folder, mod_name)
+  
+    # romfs_folder = os.path.join(input_folder, mod_name)
+
+    # layout_folder = os.path.join(input_folder, mod_name, 'romfs', 'UI', 'layout')
     
-    # Decompres layout.arc files
-    for folder, _, files in os.walk(layout_folder):
-        for file_name in files:
-            if file_name.lower().endswith(".arc"):
-                file_path = os.path.join(folder, file_name)
-            extract_szs(file_path)
-            os.remove(file_path)
+    # # Decompres layout.arc files
+    # for folder, _, files in os.walk(layout_folder):
+    #     for file_name in files:
+    #         if file_name.lower().endswith(".arc"):
+    #             file_path = os.path.join(folder, file_name)
+    #         extract_szs(file_path)
+    #         os.remove(file_path)
 
-    # Perform Pane Strecthing
-    patch_blarc(str(ratio_value), HUD_pos, text_folder)
+    # # Perform Pane Strecthing
+    # patch_blarc(str(ratio_value), HUD_pos, text_folder)
 
-    # Compress every folder titled "layout" into "layout.arc"
-    for folder_name in os.listdir(layout_folder):
-        folder_path = os.path.join(layout_folder, folder_name)
-        if os.path.isdir(folder_path):
-            for sub_folder_name in os.listdir(folder_path):
-                sub_folder_path = os.path.join(folder_path, sub_folder_name, sub_folder_name)
-                newlayout_folder = os.path.join(sub_folder_path, "layout")
-                if os.path.isdir(newlayout_folder):
-                    # Compress the layout folder
-                    print(f"Recompressing {newlayout_folder}")
-                    pack(newlayout_folder, ">", 1, os.path.join(sub_folder_path, "layout.arc"))
-                    shutil.rmtree(newlayout_folder)
+    # # Compress every folder titled "layout" into "layout.arc"
+    # for folder_name in os.listdir(layout_folder):
+    #     folder_path = os.path.join(layout_folder, folder_name)
+    #     if os.path.isdir(folder_path):
+    #         for sub_folder_name in os.listdir(folder_path):
+    #             sub_folder_path = os.path.join(folder_path, sub_folder_name, sub_folder_name)
+    #             newlayout_folder = os.path.join(sub_folder_path, "layout")
+    #             if os.path.isdir(newlayout_folder):
+    #                 # Compress the layout folder
+    #                 print(f"Recompressing {newlayout_folder}")
+    #                 pack(newlayout_folder, ">", 1, os.path.join(sub_folder_path, "layout.arc"))
+    #                 shutil.rmtree(newlayout_folder)
 
     print("We are done!")
     if open_when_done.get() == True:
         print ("Complete! Opening output folder.")
-        os.startfile(layout_folder)
+        os.startfile(patch_folder)
 
 def create_patch():
     sys.stdout = PrintRedirector(scrolled_text)
