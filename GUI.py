@@ -353,7 +353,7 @@ def select_mario_folder():
 
     # Create the PCHTXT Files
     visual_fixes = create_visuals(str(do_split60.get()), str(do_disabledynamic.get()), str(do_nosteer.get()), str(do_dofscaler.get()), str(do_fxaaoff.get()), str(do_fxaaon.get()), str(do_fxaaonscaler.get()), str(do_lodenhance.get()))
-    create_patch_files(patch_folder, str(inverse_factor), str(scaling_factor), visual_fixes, do_disabledynamic.get())
+    create_patch_files(patch_folder, str(ratio_value), str(scaling_factor), visual_fixes, do_disabledynamic.get(), str(inverse_factor))
 
     # NOTICE: THE FOLLOWING IS COMMNENTED OUT BECAUSE THE FILE IS TOO LARGE TO HOST AND TAKES TOO LONG TO PROCESS.
 

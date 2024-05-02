@@ -7,14 +7,14 @@ import math
 
 from functions import *
 
-def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes, ultrawide_camera):
+def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes, ultrawide_camera, inverse_factor):
     visual_fixesa = visual_fixes[0]
     scaling_factor = float(scaling_factor)
     ratio_value = float(ratio_value)
     print(f"The scaling factor is {scaling_factor}.")
-    hex_value = make_hex(ratio_value, 2)
-    hex_value2 = make_hex(ratio_value, 8)
-    hex_value3 = make_hex(ratio_value, 0)
+    hex_value = make_hex(inverse_factor, 2)
+    hex_value2 = make_hex(inverse_factor, 8)
+    hex_value3 = make_hex(inverse_factor, 0)
     hex_value_special = make_special(ratio_value)
     version_variables = ["13.0.1", "13.0.2"]
     hex_8r = make_super_r('w8', ratio_value)
