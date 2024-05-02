@@ -33,15 +33,6 @@ def create_visuals(do_split60, do_disabledynamic, do_nosteer, do_dofscaler, do_f
         
     visuals13_0_2 = f'''// 120 FPS
 @{split60}
-014e4a88 01102F1E
-014E4A08 E80E8052
-037497C8 2B008052
-0135cb28 00102C1E
-01392618 00102C1E
-04471e0c 4d047242
-0049a3e4 00102C1E
-037723c4 00102C1E
-03785acc 00102C1E
 00026e90 08008052
 @disabled
 
