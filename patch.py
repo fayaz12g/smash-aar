@@ -69,7 +69,7 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes, 
 00514640 {hex_9[1]}
 01493070 {hex_8[0]}
 01493074 {hex_8[1]}
-'''
+'''.upper()
 
         elif version_variable == "13.0.2":
             nsobidid = "CBD5A9B56EA859BA11CA069B19B666101AE56F5A"
@@ -109,7 +109,7 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes, 
 0051465C {hex_9[0]}
 00514660 {hex_9[1]}
 01493090 {hex_8[0]}
-01493094 {hex_8[1]}'''
+01493094 {hex_8[1]}'''.upper()
 
         if ultrawide_camera == True:
             patch_stuff = f'''{hex1} {hex_value}
