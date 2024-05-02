@@ -5,7 +5,7 @@ import functions
 import struct
 import math
 
-from functions import make_hex, float2hex
+from functions import *
 
 def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
     visual_fixesa = visual_fixes[0]
@@ -15,6 +15,7 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
     hex_value = make_hex(ratio_value, 2)
     hex_value2 = make_hex(ratio_value, 8)
     hex_value3 = make_hex(ratio_value, 0)
+    hex_value_special = make_special(ratio_value)
     version_variables = ["13.0.1", "13.0.2"]
     for version_variable in version_variables:
         file_name = f"main-{version_variable}.pchtxt"
@@ -43,7 +44,7 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
 
 @enabled
 {hex1} {hex_value}
-{hex2} 8ee31840
+{hex2} {hex_value_special}
 {hex3} {hex_value2}
 {hex4} {hex_value3}
 @stop
@@ -55,3 +56,5 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes):
         with open(file_path, 'w') as patch_file:
             patch_file.write(patch_content)
         print(f"Patch file created: {file_path}")
+
+# .BYTE 0x8e, 0xe3, 0x18, 0x40

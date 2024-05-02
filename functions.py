@@ -31,3 +31,21 @@ def patch_blyt(filename, pane, operation, value):
     with open(full_path, 'wb') as f:
         f.write(bytes.fromhex(content_new))
 
+
+def make_special(num):
+    num = round(num, 15)
+    packed = struct.pack('!f', num)
+    full_hex = ''.join('{:02x}'.format(b) for b in packed)
+    hex_1 = full_hex[:4]
+    hex_2 = full_hex[4:]
+    hex_01 = hex_1[:2]
+    hex_02 = hex_1[2:]
+    hex_03 = hex_2[:2]
+    hex_04 = hex_2[2:]
+    asm = f".BYTE 0x{hex_04}, 0x{hex_03}, 0x{hex_02}, 0x{hex_01}"
+    return asm_to_hex(asm)
+
+def asm_to_hex(asm_code):
+    ks = Ks(KS_ARCH_ARM64, KS_MODE_LITTLE_ENDIAN)
+    encoding, count = ks.asm(asm_code)
+    return ''.join('{:02x}'.format(x) for x in encoding)
