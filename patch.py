@@ -11,6 +11,7 @@ def create_patch_files(patch_folder, ratio_value, scaling_factor, visual_fixes, 
     visual_fixesa = visual_fixes[0]
     scaling_factor = float(scaling_factor)
     ratio_value = float(ratio_value)
+    inverse_factor = float(inverse_factor)
     print(f"The scaling factor is {scaling_factor}.")
     hex_value = make_hex(inverse_factor, 2)
     hex_value2 = make_hex(inverse_factor, 8)
