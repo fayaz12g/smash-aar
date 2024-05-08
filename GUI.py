@@ -46,7 +46,7 @@ import pyautogui
 #### Create Window ####
 #######################
 
-tool_version = "3.0.0"
+tool_version = "3.0.1"
 
 root = customtkinter.CTk()
 root.title(f"Fayaz's Settings {tool_version} for Super Smash Brothers Ultimate")
@@ -741,7 +741,7 @@ notebook.add("Credits")
 
 credits_label = ClickableLabel(master=notebook.tab("Credits"), text=
                     ('Utility created by fayaz\n'
-                     'https://github.com/fayaz12g/totk-aar\n'
+                     'https://github.com/fayaz12g/ssbu-aar\n'
                      'ko-fi.com/fayaz12\n'
                      '\n'
                      'Based on\n'
